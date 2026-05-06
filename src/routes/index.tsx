@@ -18,36 +18,60 @@ type Scenario = "rescuer" | "fearful" | "guilty" | "empty";
 const scenarioMeta: Record<Scenario, {
   name: string;
   tagline: string;
-  belief: string;
+  beliefs: string[];
   quantum: string;
   description: string;
 }> = {
   rescuer: {
     name: "Спасатель",
     tagline: "Вы зарабатываете для других",
-    belief: "Деньги = ответственность за всех вокруг",
-    quantum: "Я разрешаю себе быть источником изобилия, начиная с себя.",
+    beliefs: [
+      "Если будет много денег – не будет времени на семью",
+      "Жалко тратить деньги на себя",
+      "Чем больше денег – тем больше ответственности. А оно мне надо?",
+      "Если я буду зарабатывать больше, то перестану быть «своим» для родных и знакомых",
+    ],
+    quantum: "Когда я считаю, что кто-то должен обо мне позаботиться, есть пространство, где я сам способен позаботиться о себе, и я там.",
     description: "Ваша энергия денег утекает в чужие сценарии. Вы сильны, но забыли, что наполненный сосуд питает мир щедрее пустого.",
   },
   fearful: {
     name: "Хранитель страха",
     tagline: "Вы боитесь больших сумм",
-    belief: "Деньги опасны и могут исчезнуть в любой момент",
-    quantum: "Я в безопасности с любой суммой. Деньги — это спокойный поток.",
+    beliefs: [
+      "Иметь много денег – опасно",
+      "Большие деньги приносят большие проблемы",
+      "Много денег иметь нельзя, могут отобрать",
+      "Я боюсь остаться ни с чем, боюсь потерять всё",
+      "Чтобы накопить, нужно экономить",
+      "Чтобы выжить, мне надо экономить",
+    ],
+    quantum: "Когда я боюсь остаться без средств к существованию, есть пространство, где я знаю и верю, что всегда буду жить в достатке, и я там.",
     description: "Каждый прилив денег вы встречаете сжатием. Тело запоминает страх и закрывает канал. Пора разрешить себе расширение.",
   },
   guilty: {
     name: "Виновный изобилия",
     tagline: "Вам стыдно зарабатывать много",
-    belief: "Большие деньги = я плохой/недостойный",
-    quantum: "Мои деньги — благодарность мира за моё присутствие.",
+    beliefs: [
+      "Я не достойна/не достоин больших денег",
+      "Деньги – это зло. От них одни проблемы",
+      "Деньги портят людей",
+      "Большие деньги невозможно заработать честным путем",
+      "Все богатые люди – жулики, мошенники и воры",
+      "Деньги нечисты, это грязь",
+    ],
+    quantum: "Когда я не верю в свое благополучие, есть пространство, где я верю в себя и свое благополучие, и я там.",
     description: "Вина блокирует то, что уже идёт к вам. Вы талантливы, но внутренний цензор гасит сигнал. Время снять запрет.",
   },
   empty: {
     name: "Богатый, но пустой",
     tagline: "Деньги есть, вкуса к жизни — нет",
-    belief: "Я должен заслужить право наслаждаться",
-    quantum: "Я выбираю радость как валюту своей жизни.",
+    beliefs: [
+      "Не в деньгах счастье",
+      "Деньги для меня не имеют особого значения",
+      "Мне много не нужно, я могу обойтись малым",
+      "Ну и пусть я свожу концы с концами, мне так легче и привычней",
+    ],
+    quantum: "Когда я живу в комфорте, есть пространство, где я живу в роскоши, и я там.",
     description: "Вы прошли путь зарабатывания, но забыли путь проживания. Изобилие — это не цифра, это вкус каждого дня.",
   },
 };
@@ -271,12 +295,17 @@ function Index() {
 
             <div className="my-7 rounded-[22px] border-l-[6px] px-6 py-5 sm:rounded-[24px]"
               style={{ background: "var(--warning-bg)", borderColor: "var(--warning)" }}>
-              <div className="mb-2 text-[15px] font-bold sm:text-[18px]" style={{ color: "var(--warning-fg)" }}>
-                Корневое убеждение
-              </div>
-              <div className="text-[15px] font-medium sm:text-[17px]" style={{ color: "oklch(0.25 0.05 60)" }}>
-                {meta.belief}
-              </div>
+                <div className="mb-3 text-[15px] font-bold sm:text-[18px]" style={{ color: "var(--warning-fg)" }}>
+                  Ваши корневые убеждения
+                </div>
+                <ul className="space-y-2 text-[15px] font-medium sm:text-[16px]" style={{ color: "oklch(0.25 0.05 60)" }}>
+                  {meta.beliefs.map((b, i) => (
+                    <li key={i} className="flex gap-2.5">
+                      <span style={{ color: "var(--warning)" }}>✦</span>
+                      <span>«{b}»</span>
+                    </li>
+                  ))}
+                </ul>
             </div>
 
             <div className="my-7 rounded-[28px] border px-6 py-7 text-center sm:rounded-[32px] sm:px-7"
@@ -285,7 +314,7 @@ function Index() {
                 style={{ color: "oklch(0.42 0.2 295)" }}>
                 Квантовый ключ
               </div>
-              <div className="text-[18px] font-semibold leading-snug sm:text-[22px]" style={{ color: "oklch(0.22 0.12 295)" }}>
+              <div className="text-[17px] font-semibold leading-relaxed sm:text-[20px]" style={{ color: "oklch(0.22 0.12 295)" }}>
                 «{meta.quantum}»
               </div>
             </div>
@@ -298,10 +327,10 @@ function Index() {
               href="https://msukhinina.ru/kvantovoe_izobilie"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 block rounded-full px-7 py-4 text-center text-[16px] font-bold text-white transition hover:scale-[1.01] sm:text-lg"
+              className="mt-6 block rounded-full px-6 py-4 text-center text-[15px] font-bold leading-snug text-white transition hover:scale-[1.01] sm:text-[17px]"
               style={{ background: "var(--gradient-cta)", boxShadow: "var(--shadow-cta)" }}
             >
-              Перейти на курс «Квантовое изобилие» →
+              Хочу с вами на курс «КВАНТОВОЕ ИЗОБИЛИЕ» →
             </a>
 
             <button
