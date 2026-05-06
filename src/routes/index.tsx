@@ -306,7 +306,6 @@ function Index() {
                     </li>
                   ))}
                 </ul>
-              </div>
             </div>
 
             <div className="my-7 rounded-[28px] border px-6 py-7 text-center sm:rounded-[32px] sm:px-7"
