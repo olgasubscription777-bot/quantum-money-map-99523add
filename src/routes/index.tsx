@@ -295,11 +295,17 @@ function Index() {
 
             <div className="my-7 rounded-[22px] border-l-[6px] px-6 py-5 sm:rounded-[24px]"
               style={{ background: "var(--warning-bg)", borderColor: "var(--warning)" }}>
-              <div className="mb-2 text-[15px] font-bold sm:text-[18px]" style={{ color: "var(--warning-fg)" }}>
-                Корневое убеждение
-              </div>
-              <div className="text-[15px] font-medium sm:text-[17px]" style={{ color: "oklch(0.25 0.05 60)" }}>
-                {meta.belief}
+                <div className="mb-3 text-[15px] font-bold sm:text-[18px]" style={{ color: "var(--warning-fg)" }}>
+                  Ваши корневые убеждения
+                </div>
+                <ul className="space-y-2 text-[15px] font-medium sm:text-[16px]" style={{ color: "oklch(0.25 0.05 60)" }}>
+                  {meta.beliefs.map((b, i) => (
+                    <li key={i} className="flex gap-2.5">
+                      <span style={{ color: "var(--warning)" }}>✦</span>
+                      <span>«{b}»</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
 
@@ -309,7 +315,7 @@ function Index() {
                 style={{ color: "oklch(0.42 0.2 295)" }}>
                 Квантовый ключ
               </div>
-              <div className="text-[18px] font-semibold leading-snug sm:text-[22px]" style={{ color: "oklch(0.22 0.12 295)" }}>
+              <div className="text-[17px] font-semibold leading-relaxed sm:text-[20px]" style={{ color: "oklch(0.22 0.12 295)" }}>
                 «{meta.quantum}»
               </div>
             </div>
@@ -322,10 +328,10 @@ function Index() {
               href="https://msukhinina.ru/kvantovoe_izobilie"
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-6 block rounded-full px-7 py-4 text-center text-[16px] font-bold text-white transition hover:scale-[1.01] sm:text-lg"
+              className="mt-6 block rounded-full px-6 py-4 text-center text-[15px] font-bold leading-snug text-white transition hover:scale-[1.01] sm:text-[17px]"
               style={{ background: "var(--gradient-cta)", boxShadow: "var(--shadow-cta)" }}
             >
-              Перейти на курс «Квантовое изобилие» →
+              Хочу с вами на курс «КВАНТОВОЕ ИЗОБИЛИЕ» →
             </a>
 
             <button
