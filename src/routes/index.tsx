@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Scenario = "rescuer" | "fearful" | "guilty" | "empty";
+type Scenario = "rescuer" | "fearful" | "guilty" | "empty" | "growing";
 
 const scenarioMeta: Record<Scenario, {
   name: string;
@@ -74,6 +74,19 @@ const scenarioMeta: Record<Scenario, {
     quantum: "Когда я живу в комфорте, есть пространство, где я живу в роскоши, и я там.",
     description: "Вы прошли путь зарабатывания, но забыли путь проживания. Изобилие — это не цифра, это вкус каждого дня.",
   },
+  growing: {
+    name: "Растущий",
+    tagline: "Вы на пороге нового уровня",
+    beliefs: [
+      "Мои нынешние доходы — это мой потолок",
+      "Чтобы зарабатывать больше — надо больше работать",
+      "Кратный рост — это всегда стресс и риск",
+      "Я уже достиг(ла) хорошего уровня, дальше — жадность",
+      "Большие деньги требуют, чтобы я стал(а) другим человеком, и я этого боюсь",
+    ],
+    quantum: "Когда я живу в достатке, есть пространство, где я живу в изобилии и постоянном расширении, и я там.",
+    description: "У вас уже есть результат и позитивное мышление. Но привычные стратегии перестают давать прежний рывок — следующий уровень требует нового внутреннего разрешения и новой плотности мышления.",
+  },
 };
 
 const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
@@ -84,6 +97,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "Сразу думаю, кому помочь", s: "rescuer" },
       { label: "Чувствую лёгкую вину", s: "guilty" },
       { label: "Не чувствую особой радости", s: "empty" },
+      { label: "Радуюсь, но ловлю мысль: а почему не в 10 раз больше?", s: "growing" },
     ],
   },
   {
@@ -93,6 +107,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "«Я должен/должна обеспечивать»", s: "rescuer" },
       { label: "«Не в деньгах счастье»", s: "guilty" },
       { label: "«Зачем больше, и так норм»", s: "empty" },
+      { label: "«Денег достаточно, но я чувствую невидимый потолок»", s: "growing" },
     ],
   },
   {
@@ -102,6 +117,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "Боюсь, что у меня так не получится", s: "fearful" },
       { label: "Думаю, как ему тяжело за всё отвечать", s: "rescuer" },
       { label: "Не вдохновляюсь, мне это не нужно", s: "empty" },
+      { label: "Восхищаюсь и думаю: что он понял такого, чего ещё не понял(а) я?", s: "growing" },
     ],
   },
   {
@@ -111,6 +127,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "Страшно, а вдруг закончатся", s: "fearful" },
       { label: "Эгоистично, есть кому нужнее", s: "rescuer" },
       { label: "Не понимаю, чего мне хотеть", s: "empty" },
+      { label: "Легко, но крупный скачок дохода — почему-то страшнее траты", s: "growing" },
     ],
   },
   {
@@ -120,6 +137,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "Коплю и боюсь тратить", s: "fearful" },
       { label: "Сливаю деньги, как только появляются", s: "guilty" },
       { label: "Есть деньги, но жизнь как серый фон", s: "empty" },
+      { label: "Стабильно расту, но застрял(а) на одной и той же планке", s: "growing" },
     ],
   },
   {
@@ -129,6 +147,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "«Мы всё для тебя, надо помогать»", s: "rescuer" },
       { label: "«Богатые — нечестные»", s: "guilty" },
       { label: "«Деньги есть, но не до радости»", s: "empty" },
+      { label: "«Деньги — это нормально, но „как у всех“, без размаха»", s: "growing" },
     ],
   },
   {
@@ -138,6 +157,7 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "«Ты меня раздаёшь»", s: "rescuer" },
       { label: "«Ты меня стыдишься»", s: "guilty" },
       { label: "«Ты меня не чувствуешь»", s: "empty" },
+      { label: "«Ты упёрся в свой потолок»", s: "growing" },
     ],
   },
   {
@@ -147,6 +167,27 @@ const questions: { q: string; options: { label: string; s: Scenario }[] }[] = [
       { label: "Усталость — я и так стараюсь", s: "rescuer" },
       { label: "Лёгкий стыд — это про меня", s: "guilty" },
       { label: "Пустоту — а смысл?", s: "empty" },
+      { label: "Интерес — хочу следующий уровень, а не разбор болей", s: "growing" },
+    ],
+  },
+  {
+    q: "Когда я представляю свой доход × 10, первое чувство:",
+    options: [
+      { label: "Тревога — это слишком много, не справлюсь", s: "fearful" },
+      { label: "Вина — мне столько не нужно, есть кому нужнее", s: "guilty" },
+      { label: "Усталость — это же ещё больше отвечать за всех", s: "rescuer" },
+      { label: "Пустота — а зачем, если радости и так нет", s: "empty" },
+      { label: "Азарт и лёгкий мандраж — я этого хочу, но не вижу „как“", s: "growing" },
+    ],
+  },
+  {
+    q: "Что чаще всего останавливает ваш следующий финансовый скачок?",
+    options: [
+      { label: "Страх потерять то, что уже есть", s: "fearful" },
+      { label: "Чувство «хватит, не наглей»", s: "guilty" },
+      { label: "Я тяну слишком многих на себе", s: "rescuer" },
+      { label: "Нет внутреннего «зачем»", s: "empty" },
+      { label: "Я не вижу новой стратегии — старая больше не растёт", s: "growing" },
     ],
   },
 ];
@@ -160,7 +201,7 @@ function Index() {
   const progress = done ? 100 : Math.round((step / total) * 100);
 
   const result: Scenario = useMemo(() => {
-    const counts: Record<Scenario, number> = { rescuer: 0, fearful: 0, guilty: 0, empty: 0 };
+    const counts: Record<Scenario, number> = { rescuer: 0, fearful: 0, guilty: 0, empty: 0, growing: 0 };
     answers.forEach((a) => a && counts[a]++);
     return (Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0] as Scenario) || "rescuer";
   }, [answers]);
