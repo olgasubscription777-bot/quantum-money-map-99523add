@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-type Scenario = "rescuer" | "fearful" | "guilty" | "empty";
+type Scenario = "rescuer" | "fearful" | "guilty" | "empty" | "growing";
 
 const scenarioMeta: Record<Scenario, {
   name: string;
