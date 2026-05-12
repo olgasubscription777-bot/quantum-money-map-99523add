@@ -10,7 +10,7 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
     prerender: {
-      enabled: true,
+      enabled: false,
       crawlLinks: true,
     },
     pages: [{ path: "/" }],
