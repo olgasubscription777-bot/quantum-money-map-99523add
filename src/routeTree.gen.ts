@@ -9,8 +9,14 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as QuantumMoneyMap99523addRouteImport } from './routes/quantum-money-map-99523add'
 import { Route as IndexRouteImport } from './routes/index'
 
+const QuantumMoneyMap99523addRoute = QuantumMoneyMap99523addRouteImport.update({
+  id: '/quantum-money-map-99523add',
+  path: '/quantum-money-map-99523add',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +25,39 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/quantum-money-map-99523add': typeof QuantumMoneyMap99523addRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/quantum-money-map-99523add': typeof QuantumMoneyMap99523addRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/quantum-money-map-99523add': typeof QuantumMoneyMap99523addRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/quantum-money-map-99523add'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/quantum-money-map-99523add'
+  id: '__root__' | '/' | '/quantum-money-map-99523add'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  QuantumMoneyMap99523addRoute: typeof QuantumMoneyMap99523addRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/quantum-money-map-99523add': {
+      id: '/quantum-money-map-99523add'
+      path: '/quantum-money-map-99523add'
+      fullPath: '/quantum-money-map-99523add'
+      preLoaderRoute: typeof QuantumMoneyMap99523addRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,7 +70,18 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  QuantumMoneyMap99523addRoute: QuantumMoneyMap99523addRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
